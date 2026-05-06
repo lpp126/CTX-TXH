@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="color-scheme" content="light">
+  <title>添_星辉 | 应援认领</title>
+  <link rel="stylesheet" href="assets/claim.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">跳到正文</a>
+
+  <header class="site-header site-header-nav">
+    <div class="header-inner">
+      <a href="index.html" class="logo-wrap" aria-label="添_星辉主页">
+        <img src="assets/站子名字图案.png" alt="添_星辉" class="site-logo" onerror="this.style.display='none';this.parentNode.querySelector('.site-logo-fallback').style.display='inline';">
+        <span class="site-logo-fallback">添_星辉</span>
+      </a>
+      <button class="menu-toggle" id="menuToggle" aria-label="展开导航">☰</button>
+      <nav class="top-nav" id="topNav" aria-label="主导航">
+        <a href="index.html#home">首页</a>
+        <a href="claim.html" class="is-primary">应援认领</a>
+        <a href="index.html#about">站子介绍</a>
+        <a href="index.html#news">站务公告</a>
+        <a href="index.html#contact">联系我们</a>
+        <a href="index.html">返回主页</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main" class="site-main">
+    <section id="view-closed" class="card state-closed" hidden>
+      <h1 class="card__title">认领已关闭</h1>
+      <p class="card__lead" id="closedMessage">当前认领通道已暂时关闭，请关注后续公告。</p>
+    </section>
+
+    <section id="view-list" hidden>
+      <div class="card">
+        <h1 class="card__title">选择应援项目</h1>
+        <p class="card__lead">请选择要认领的项目，进入详情页查看说明、收款方式并提交登记信息。</p>
+      </div>
+      <div class="card">
+        <div id="projectList" class="project-grid" aria-live="polite"></div>
+      </div>
+    </section>
+
+    <section id="view-detail" hidden>
+      <nav class="breadcrumbs" aria-label="面包屑">
+        <button type="button" class="linkish" id="btnBackToList">认领首页</button>
+        <span class="bc-sep" aria-hidden="true">›</span>
+        <span id="bcCurrent">项目详情</span>
+      </nav>
+
+      <div class="card">
+        <h1 class="card__title" id="detailTitle">项目</h1>
+        <p class="card__lead" id="detailDesc"></p>
+      </div>
+
+      <div class="card">
+        <h2 class="card__title" style="font-size:1rem;">收款方式</h2>
+        <p class="card__lead" style="margin-bottom:10px;">请使用微信或支付宝扫码付款，付款完成后上传截图链接。</p>
+        <div class="qr-grid" aria-label="收款二维码">
+          <figure class="qr-box">
+            <div class="qr-box__label">微信</div>
+            <img class="qr-img" src="assets/wechat.jpg" alt="微信收款码" width="200" height="200" loading="lazy">
+            <figcaption class="qr-caption">请使用微信扫码完成付款</figcaption>
+          </figure>
+          <figure class="qr-box">
+            <div class="qr-box__label">支付宝</div>
+            <img class="qr-img" src="assets/alipay.jpg" alt="支付宝收款码" width="200" height="200" loading="lazy">
+            <figcaption class="qr-caption">请使用支付宝扫码完成付款</figcaption>
+          </figure>
+        </div>
+        <p class="pay-note">付款后请直接上传截图文件，系统会自动压缩并提交，便于工作人员核对。</p>
+      </div>
+
+      <form id="claimForm" novalidate>
+        <ul id="nonFieldErrors" class="errorlist nonfield" hidden></ul>
+
+        <fieldset class="module">
+          <legend>基本信息</legend>
+          <div class="form-row">
+            <label for="name">您的姓名 / 昵称<span class="req">*</span></label>
+            <input type="text" id="name" name="name" autocomplete="name" required>
+            <ul id="err_name" class="errorlist" hidden></ul>
+          </div>
+          <div class="form-row">
+            <label for="contact">联系方式（微信 / 手机 / 邮箱）<span class="req">*</span></label>
+            <input type="text" id="contact" name="contact" autocomplete="tel" required>
+            <ul id="err_contact" class="errorlist" hidden></ul>
+          </div>
+          <div class="form-row">
+            <label for="amount">认领金额（元）<span class="req">*</span></label>
+            <div class="amount-wrap">
+              <span class="amount-prefix" aria-hidden="true">¥</span>
+              <input type="number" id="amount" name="amount" min="0" step="0.01" inputmode="decimal" required placeholder="0.00">
+            </div>
+            <ul id="err_amount" class="errorlist" hidden></ul>
+          </div>
+        </fieldset>
+
+        <fieldset class="module">
+          <legend>付款凭证</legend>
+          <div class="form-row">
+            <label for="screenshotFile">付款截图文件<span class="req">*</span></label>
+            <input type="file" id="screenshotFile" name="screenshotFile" accept="image/*" required>
+            <ul id="err_screenshotFile" class="errorlist" hidden></ul>
+            <p class="help">支持 JPG / PNG / WEBP，建议单张不超过 8MB，提交时会自动压缩。</p>
+          </div>
+          <div class="form-row">
+            <label for="remark">备注（选填）</label>
+            <textarea id="remark" name="remark" placeholder="需要补充说明的内容"></textarea>
+            <ul id="err_remark" class="errorlist" hidden></ul>
+          </div>
+        </fieldset>
+
+        <fieldset class="module">
+          <legend>其他项目</legend>
+          <div class="form-row">
+            <label for="customProject">若实际认领项目名称与上方不一致，可在此填写（选填）</label>
+            <input type="text" id="customProject" name="customProject" placeholder="留空则使用当前项目页标题">
+            <ul id="err_customProject" class="errorlist" hidden></ul>
+          </div>
+        </fieldset>
+
+        <div class="btn-row">
+          <button type="submit" class="btn btn-primary btn-block" id="submitBtn">提交认领登记</button>
+        </div>
+      </form>
+    </section>
+
+    <section id="view-thanks" class="card" hidden>
+      <div class="thanks-icon" aria-hidden="true">✓</div>
+      <h1 class="card__title">感谢您的支持</h1>
+      <p class="card__lead">我们已收到您的登记信息，工作人员会尽快核对付款凭证并与您联系，请留意您留下的联系方式。</p>
+      <div class="btn-row" style="margin-top:14px;">
+        <a class="btn btn-primary" href="index.html">返回站子首页</a>
+        <button type="button" class="btn" id="btnThanksAnother">继续认领其他项目</button>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <a href="index.html">返回站子首页</a>
+    <span style="margin:0 8px;color:#d6d3cd;">|</span>
+    <a href="admin.html">工作人员入口</a>
+  </footer>
+
+  <script src="config.js"></script>
+  <script src="assets/api.js"></script>
+  <script src="assets/claim.js"></script>
+</body>
+</html>

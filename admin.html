@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="color-scheme" content="light">
+  <title>管理后台 · 应援认领</title>
+  <link rel="stylesheet" href="assets/admin.css?v=20260506-2208">
+</head>
+<body>
+  <div class="wrap">
+    <section id="view-login" class="view-login" aria-label="登录">
+      <div class="login-card">
+        <div class="login-brand">
+          <div class="login-mark" aria-hidden="true"></div>
+          <div>
+            <h1 class="login-title">管理后台</h1>
+            <p class="login-sub">使用与 Google Apps Script 中 <strong>ADMIN_KEY</strong> 相同的密钥登录。</p>
+          </div>
+        </div>
+
+        <div class="field">
+          <label for="loginKey">管理密钥</label>
+          <input class="input" id="loginKey" type="password" autocomplete="off" placeholder="请输入密钥">
+        </div>
+
+        <div class="row">
+          <label class="chk">
+            <input type="checkbox" id="rememberKey">
+            记住密钥（本机 localStorage，公共设备勿勾选）
+          </label>
+          <button type="button" class="btn btn-primary" id="btnLogin">登录</button>
+        </div>
+
+        <div id="loginMsg" class="msg" role="status"></div>
+
+        <div class="row" style="margin-top:16px;">
+          <a class="btn btn-ghost" href="index.html">返回站子主页</a>
+        </div>
+      </div>
+    </section>
+
+    <section id="view-app" hidden aria-label="控制台">
+      <header class="admin-masthead">
+        <div class="admin-masthead__title">应援认领 · 管理后台</div>
+        <div class="admin-masthead__actions">
+          <span class="meta meta--on-header" id="whoami">已登录</span>
+          <button type="button" class="btn btn-header" id="btnLogout">退出登录</button>
+          <a class="btn btn-header" href="claim.html">打开认领页</a>
+        </div>
+      </header>
+      <nav class="admin-crumb" aria-label="面包屑">
+        <a href="index.html">首页</a> › <span>管理后台</span>
+      </nav>
+
+      <div class="topbar">
+        <div class="tabs" role="tablist" aria-label="功能分区">
+          <button type="button" class="tab" id="tabClaims" role="tab" aria-selected="true">认领数据</button>
+          <button type="button" class="tab" id="tabProjects" role="tab" aria-selected="false">应援项目</button>
+          <button type="button" class="tab" id="tabSite" role="tab" aria-selected="false">主页内容</button>
+        </div>
+      </div>
+
+      <div id="panelClaims" class="panel" role="tabpanel">
+        <div class="toolbar">
+          <div class="toolbar-left">
+            <input class="input" id="filterClaims" type="search" placeholder="筛选：昵称 / 项目 / 联系方式…" style="min-width:min(520px,72vw);">
+            <button type="button" class="btn btn-primary" id="btnReloadClaims">刷新</button>
+            <button type="button" class="btn" id="btnCsvClaims">导出 CSV</button>
+            <button type="button" class="btn" id="btnAddClaim">新增认领</button>
+          </div>
+          <div class="toolbar-right">
+            <span class="meta" id="metaClaims">未加载</span>
+          </div>
+        </div>
+        <div id="msgClaims" class="msg" role="status"></div>
+        <div class="table-wrap">
+          <table>
+            <thead id="theadClaims"></thead>
+            <tbody id="tbodyClaims"></tbody>
+          </table>
+          <div id="emptyClaims" class="empty" hidden>暂无数据</div>
+        </div>
+      </div>
+
+      <div id="panelProjects" class="panel" hidden role="tabpanel">
+        <div class="toolbar">
+          <div class="toolbar-left">
+            <input class="input" id="filterProjects" type="search" placeholder="筛选：名称 / 目标…" style="min-width:min(420px,72vw);">
+            <button type="button" class="btn btn-primary" id="btnReloadProjects">刷新</button>
+            <button type="button" class="btn" id="btnAddProject">新增项目</button>
+          </div>
+          <div class="toolbar-right">
+            <span class="meta" id="metaProjects">未加载</span>
+          </div>
+        </div>
+        <div id="msgProjects" class="msg" role="status"></div>
+        <div class="table-wrap">
+          <table>
+            <thead id="theadProjects"></thead>
+            <tbody id="tbodyProjects"></tbody>
+          </table>
+          <div id="emptyProjects" class="empty" hidden>暂无项目</div>
+        </div>
+      </div>
+
+      <div id="panelSite" class="panel" hidden role="tabpanel">
+        <div class="toolbar">
+          <div class="toolbar-left">
+            <button type="button" class="btn btn-primary" id="btnReloadSite">加载主页内容</button>
+            <button type="button" class="btn" id="btnSaveSite">保存主页内容</button>
+            <button type="button" class="btn" id="btnPreviewSite">一键预览首页</button>
+            <button type="button" class="btn btn-danger" id="btnResetSite">恢复默认文案</button>
+          </div>
+          <div class="toolbar-right">
+            <span class="meta" id="metaSite">未加载</span>
+          </div>
+        </div>
+        <div id="msgSite" class="msg" role="status"></div>
+        <div class="site-form-grid">
+          <div class="field"><label for="site_hero_kicker">主视觉短标语</label><input class="input" id="site_hero_kicker" type="text"></div>
+          <div class="field"><label for="site_hero_title">主标题</label><input class="input" id="site_hero_title" type="text"></div>
+          <div class="field"><label for="site_hero_desc">主视觉描述</label><textarea class="input" id="site_hero_desc"></textarea></div>
+          <div class="field"><label for="site_feature_title">本期主推标题</label><input class="input" id="site_feature_title" type="text"></div>
+          <div class="field"><label for="site_feature_desc">本期主推描述</label><textarea class="input" id="site_feature_desc"></textarea></div>
+          <div class="field"><label for="site_claim_title">应援认领标题</label><input class="input" id="site_claim_title" type="text"></div>
+          <div class="field"><label for="site_claim_desc">应援认领描述</label><textarea class="input" id="site_claim_desc"></textarea></div>
+          <div class="field"><label for="site_news_1">公告 1</label><input class="input" id="site_news_1" type="text"></div>
+          <div class="field"><label for="site_news_2">公告 2</label><input class="input" id="site_news_2" type="text"></div>
+          <div class="field"><label for="site_news_3">公告 3</label><input class="input" id="site_news_3" type="text"></div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <dialog id="dlgClaim" class="modal" aria-labelledby="dlgClaimTitle">
+    <div class="modal-panel">
+      <h3 id="dlgClaimTitle">编辑认领</h3>
+      <div class="modal-grid" id="dlgClaimFields"></div>
+      <div class="modal-actions">
+        <button type="button" class="btn" id="dlgClaimCancel">取消</button>
+        <button type="button" class="btn btn-primary" id="dlgClaimSave">保存</button>
+      </div>
+    </div>
+  </dialog>
+
+  <dialog id="dlgProject" class="modal" aria-labelledby="dlgProjectTitle">
+    <div class="modal-panel">
+      <h3 id="dlgProjectTitle">编辑应援项目</h3>
+      <div class="modal-grid" id="dlgProjectFields"></div>
+      <div class="modal-actions">
+        <button type="button" class="btn" id="dlgProjectCancel">取消</button>
+        <button type="button" class="btn btn-primary" id="dlgProjectSave">保存</button>
+      </div>
+    </div>
+  </dialog>
+
+  <script src="config.js?v=20260506-2208"></script>
+  <script src="assets/api.js?v=20260506-2208"></script>
+  <script src="assets/admin.js?v=20260506-2208"></script>
+</body>
+</html>

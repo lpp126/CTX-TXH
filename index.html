@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="color-scheme" content="light">
+  <title>添_星辉 | 应援站主页</title>
+  <link rel="stylesheet" href="assets/home.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="header-inner">
+      <a href="index.html" class="logo-wrap" aria-label="添_星辉主页">
+        <img src="assets/站子名字图案.png" alt="添_星辉" class="site-logo" onerror="this.style.display='none';this.parentNode.querySelector('.site-logo-fallback').style.display='inline';">
+        <span class="site-logo-fallback">添_星辉</span>
+      </a>
+      <button class="menu-toggle" id="menuToggle" aria-label="展开导航">☰</button>
+      <nav class="top-nav" id="topNav" aria-label="主导航">
+        <a href="#home">首页</a>
+        <a href="#claim" class="is-primary">应援认领</a>
+        <a href="#about">站子介绍</a>
+        <a href="#news">站务公告</a>
+        <a href="#contact">联系我们</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section id="home" class="hero">
+      <div class="hero-inner">
+        <div class="hero-copy">
+          <p class="kicker" id="heroKicker">TIAN · STARLIGHT SUPPORT</p>
+          <h1 id="heroTitle">添_星辉 | 陈添祥</h1>
+          <p id="heroDesc">以爱为名，记录每一份支持。欢迎进入站子主页，查看应援计划、参与认领、关注最新站务动态。</p>
+          <div class="hero-actions">
+            <a href="claim.html" class="btn btn-primary">立即参与应援认领</a>
+            <a href="#about" class="btn">了解站子</a>
+          </div>
+        </div>
+        <div class="hero-card">
+          <h3 id="featureTitle">本期主推</h3>
+          <p id="featureDesc">生日应援 / 线下应援 / 应援物料筹备中</p>
+          <a href="claim.html" class="text-link">去认领页面 →</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="carousel-section">
+      <div class="section-head">
+        <h2>站子精选图集</h2>
+        <p>可放舞台图、应援图、活动图，支持自动轮播。</p>
+      </div>
+      <div class="carousel" id="carousel" aria-label="滚动图片">
+        <button class="carousel-btn prev" id="prevSlide" aria-label="上一张">‹</button>
+        <div class="carousel-track" id="carouselTrack">
+          <article class="slide is-active" data-src="assets/banner-1.jpg">
+            <div class="slide-overlay">
+              <h3>添_星辉应援现场</h3>
+              <p>记录每一次相聚与闪光时刻。</p>
+            </div>
+          </article>
+          <article class="slide" data-src="assets/banner-2.jpg">
+            <div class="slide-overlay">
+              <h3>生日应援企划</h3>
+              <p>生日主题视觉与应援物料进度一览。</p>
+            </div>
+          </article>
+          <article class="slide" data-src="assets/banner-3.jpg">
+            <div class="slide-overlay">
+              <h3>站子活动纪念</h3>
+              <p>线下活动、地推与打卡的精彩瞬间。</p>
+            </div>
+          </article>
+        </div>
+        <button class="carousel-btn next" id="nextSlide" aria-label="下一张">›</button>
+      </div>
+      <div class="dots" id="dots" aria-label="轮播指示器"></div>
+    </section>
+
+    <section id="claim" class="section cards">
+      <article class="card card-feature">
+        <div>
+          <p class="badge">主要板块</p>
+          <h2 id="claimTitle">应援认领</h2>
+          <p id="claimDesc">这是站子当前最重要入口。进入后可选择项目、填写认领信息并提交付款凭证，数据将自动汇总到后台表格。</p>
+        </div>
+        <div class="card-actions">
+          <a href="claim.html" class="btn btn-primary btn-lg">进入应援认领</a>
+          <a href="admin.html" class="btn">工作人员后台</a>
+        </div>
+      </article>
+    </section>
+
+    <section id="about" class="section cards cards-3">
+      <article class="card">
+        <h3>站子简介</h3>
+        <p>添_星辉致力于组织规范、透明、高效的粉丝应援行动，聚合每份心意，转化为看得见的支持。</p>
+      </article>
+      <article class="card">
+        <h3>应援方向</h3>
+        <p>生日应援、活动应援、杂志/周边团购、公益向企划等，均可在应援认领板块统一登记。</p>
+      </article>
+      <article class="card">
+        <h3>信息公开</h3>
+        <p>应援项目进度、费用汇总、执行结果将分阶段公示，确保每笔支持可追踪、可核验。</p>
+      </article>
+    </section>
+
+    <section id="news" class="section cards cards-2">
+      <article class="card">
+        <h3>站务公告</h3>
+        <ul class="news-list">
+          <li id="news1">【置顶】认领提报与核验规则说明</li>
+          <li id="news2">【更新】生日应援物料打样中</li>
+          <li id="news3">【预告】线下活动签到与打卡安排</li>
+        </ul>
+      </article>
+      <article class="card">
+        <h3>时间线</h3>
+        <ul class="news-list">
+          <li>5月：开放认领 + 物料确认</li>
+          <li>6月：活动执行 + 现场反馈</li>
+          <li>7月：结项公示 + 复盘总结</li>
+        </ul>
+      </article>
+    </section>
+
+    <section id="contact" class="section cards">
+      <article class="card">
+        <h2>联系我们</h2>
+        <p>如需商务合作、应援建议或数据更正，请通过站子官号联系；若您是工作人员请使用后台入口进行登记核验。</p>
+        <div class="contact-actions">
+          <a class="btn" href="admin.html">后台入口</a>
+          <a class="btn" href="claim.html">认领入口</a>
+        </div>
+      </article>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <p>© 添_星辉应援站 · 本站为粉丝组织页面</p>
+  </footer>
+
+  <script src="config.js"></script>
+  <script src="assets/api.js"></script>
+  <script src="assets/home.js"></script>
+</body>
+</html>
